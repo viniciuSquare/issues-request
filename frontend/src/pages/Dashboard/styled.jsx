@@ -1,9 +1,13 @@
 import styled from 'styled-components'
 
 export const StyledDashboard = styled.div`
-  table {
-    border: 1px solid black ;
-    
+  display: flex ;
+  flex-direction: column;
+
+  .header-title {
+    color: #3d6cb9;
+    font-weight: 500;
   }
+
 
 `

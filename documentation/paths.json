@@ -1,0 +1,35 @@
+{
+  "resources": [
+    {          
+      "name": "GET USERS",
+      "method": "GET",
+      "url": "server:3001/responsibles",
+      "description": "",
+      "body": {}
+    },
+    {          
+      "name": "GET ISSUES",
+      "method": "GET",
+      "url": "server:3001/issues",
+      "description": "",
+      "body": {}
+    },
+    {          
+      "name": "GET ISSUE",
+      "method": "GET",
+      "url": "server:3001/issues/1",
+      "description": "",
+      "body": {}
+    },
+    {          
+      "name": "CREATE ISSUE",
+      "method": "POST",
+      "url": "server:3001/issues/",
+      "description": "",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n\t\"description\" : \"Lorem impsum whatever\",\n\t\"responsible\" : 2,\n\t\"deadline\": \"2022-05-10\"\n}"
+      }
+    }
+  ]
+}

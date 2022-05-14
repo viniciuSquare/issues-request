@@ -6,25 +6,28 @@ import { StyledApp } from './styled'
 
 import { Dashboard } from './pages/Dashboard';
 import { IssueCreation } from './pages/IssueCreation/';
+import { DataContextProvider } from './context/DataContext';
+import { Issues } from './pages/Issues';
 
 export function Router() {
   return (
-    <StyledApp>
-      <BrowserRouter>
-        <SideBar/>
+    <DataContextProvider>
+      <StyledApp>
+        <BrowserRouter>
+          <SideBar/>
 
-        <Routes>
-          <Route path='/' element={<Dashboard/>} exact/>
-          <Route path='/users' element={<h1>CREATE</h1>} />
+          <Routes>
+            <Route path='/' element={<Dashboard/>} exact/>
 
-          <Route path='/issues' element={<h1>Listagem</h1>} exact/>
-          <Route path='/issue/:id' element={<h1>Chamado</h1>} />
-          <Route path='/issue/create' element={<IssueCreation/>} exact/>
-        </Routes>
+            <Route path='/issues' element={<Issues/>} exact/>
+            <Route path='/issue/create' element={<IssueCreation/>} exact/>
+            <Route path='/issue/:id' element={<h1>Chamado</h1>} />
+          </Routes>
 
-        <NewActionButton/>
-      </BrowserRouter>
-    </StyledApp>
+          <NewActionButton/>
+        </BrowserRouter>
+      </StyledApp>
+    </DataContextProvider>
   )
 
 }
