@@ -1,10 +1,12 @@
 import styled from 'styled-components'
 
 export const StyledIssuesPage = styled.div`
+  /* height: 100% ; */
 
-.issues-list {
-    max-height: 70% ;
-    overflow-y: auto ;
+  overflow-y: scroll ;
+
+  .issues-list {
+    /* height: 70% ; */
 
   }
 

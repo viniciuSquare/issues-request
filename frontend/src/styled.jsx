@@ -10,6 +10,9 @@ export const StyledApp = styled.div`
 
   .container {
     padding: 0 5%;
+    
+    display: flex ;
+    flex-direction: column;
   }
 
   .header-title {
@@ -24,6 +27,25 @@ export const StyledApp = styled.div`
 
   .board-title {
     margin-bottom: 0.4rem ;
+  }
+
+  a {
+    display: flex ;
+    align-items: center ;
+
+    svg {
+      margin-right: 0.5rem ;
+    }
+  }
+
+  button, a.button {
+    background-color: blue;
+    color: white;
+    
+    font-size: 1.2rem;
+
+    border: none ;
+    border-radius: 4px;
   }
   
 

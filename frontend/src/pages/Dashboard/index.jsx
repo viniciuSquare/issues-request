@@ -11,14 +11,9 @@ import { StyledDashboard } from "./styled";
 export function Dashboard() {
   const { 
     issuesList,
-    fetchIssuesList, fetchResponsibleUsersList,  
     isLoading 
   } = useData();
 
-  useEffect(() =>{
-    fetchIssuesList();
-    fetchResponsibleUsersList()
-  },[])
   return(
     <StyledDashboard className="container">
       <PageHeader title="Dashboard" />

@@ -9,17 +9,4 @@ export const StyledNewActionButton = styled(Link)`
   height: 3rem ;
   padding: 0 0.6rem ;
 
-  border: none ;
-  border-radius: 4px;
-
-  background-color: blue;
-  color: white;
-  font-size: 1.2rem;
-
-  display: flex ;
-  align-items: center ;
-
-  svg {
-    margin-right: 0.5rem ;
-  }
 `

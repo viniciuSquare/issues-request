@@ -5,7 +5,7 @@ import { StyledNewActionButton } from './styled'
 export function NewActionButton() {
 
   return (
-    <StyledNewActionButton to="/issue/create">
+    <StyledNewActionButton to="/issue/create" className='button'>
       <Plus size='1.5rem'/>
       <span className='hidden-span-container'>
         <span>Novo chamado</span>

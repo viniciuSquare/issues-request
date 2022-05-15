@@ -5,4 +5,7 @@ export const StyledPageHeader = styled.header`
   
   display: flex;
   align-items: center;
+
+  color: #2e528c;
+  font-weight: 500;
 `
