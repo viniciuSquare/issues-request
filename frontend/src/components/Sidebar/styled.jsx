@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const StyledSideBar = styled.aside`
   /* background-color: #0d2d6c; */
-  background-color: #24244D;
+  background-color: #24244d;
 
   display: flex;
   flex-direction: column;
@@ -23,10 +23,10 @@ export const StyledSideBar = styled.aside`
     margin-bottom: 1rem ;
     padding-left: 1rem ;
 
-    background-color: #91e4f7;
+    background-color: #669bfe95;
     border-radius: 4px ;
 
-    color: #141313;
+    color: #ffffff;
     font-size: 1.1rem;
   }
 

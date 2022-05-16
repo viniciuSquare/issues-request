@@ -1,39 +1,42 @@
 const { PrismaClient } = require("@prisma/client");
+const { isTodayOverDeadline } = require("../helpers/getAnalytics");
 
-const prisma = new PrismaClient
+const prisma = new PrismaClient();
 
-function getIssueFromRequestBody( requestBody ) {
+function getIssueFromRequestBody(requestBody) {
   const { 
-    deadline,
-    description,
-    responsible,
-    isItDone
+    deadline, 
+    description, 
+    responsible, 
+    isDone
   } = requestBody;
 
-  const issue =  { 
+  const issue = {
     deadline,
     description,
     responsible,
-    isItDone
-  } 
+    isDone,
+  };
 
   return issue;
 }
 
-function getIssueActionFromRequestBody( requestBody ) {
+function getIssueActionFromRequestBody(requestBody) {
   const { 
-    date,
-    description,
-    author,
-    isItResolution
+    date, 
+    description, 
+    isResolution, 
+    issueId, 
+    author 
   } = requestBody;
 
-  const issue =  { 
+  const issue = {
     date,
     description,
+    isResolution,
+    issueId,
     author,
-    isItResolution
-  } 
+  };
 
   return issue;
 }
@@ -43,12 +46,10 @@ class IssuesServices {
     const allIssues = await prisma.issue.findMany({
       include: {
         responsible: true,
-        issueActions: true
-      }
+        issueActions: true,
+      },
     });
 
-    // TODO - ADD ANALYTICS HEADER
-    
     response.json(allIssues);
   }
 
@@ -63,34 +64,61 @@ class IssuesServices {
         deadline: new Date(deadline),
         responsible: {
           connect: {
-            id: Number(responsibleId)
-          }
-        }
-      }
-    })
-    
+            id: Number(responsibleId),
+          },
+        },
+      },
+    });
+
     return response.status(201).json(issueCreated);
   }
 
   async getIssueData(request, response) {
-    const {id} = request.params;
+    const { id } = request.params;
 
     const issueData = await prisma.issue.findUnique({
       where: {
-        id: Number(id)
+        id: Number(id),
       },
       include: {
         responsible: true,
-        issueActions: true
-      }
-    })
+        issueActions: true,
+      },
+    });
     response.json(issueData);
   }
 
-  async updateIssueWithAction(request, response) {
-
+  async setIssueAsDone(issueId) {
+    await prisma.issue.update({
+      where: {
+        id: issueId,
+      },
+      data: {
+        isDone: true,
+      },
+    });
   }
 
+  async createIssueAction(request, response) {
+    const issueAction = getIssueActionFromRequestBody(request.body);
+    const { date, author: userId } = issueAction;
+
+    delete issueAction.date;
+    delete issueAction.author;
+
+    const createdIssueAction = await prisma.issueAction.create({
+      data: {
+        ...issueAction,
+        userId,
+        date: new Date(date),
+      },
+    });
+
+    if (issueAction.isResolution)
+      new IssuesServices().setIssueAsDone(issueAction.issueId);
+
+    response.status(201).json(createdIssueAction);
+  }
 }
 
-module.exports = IssuesServices
+module.exports = IssuesServices;

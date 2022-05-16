@@ -10,9 +10,6 @@ export function DataContextProvider(props) {
   const [responsibleList, setResponsibleList] = useState([]);
 
   const [isLoading, setIsLoading] = useState(true);
-  
-  const getTodayDate= () => "" + new Date().getFullYear() +"-"+ (new Date().getMonth()+1) +"-"+ new Date().getDate()
-  const isTodayOverDeadline = (issue) => new Date(getTodayDate()) > new Date(issue.deadline);
 
   async function fetchIssuesList() {
     setIsLoading(true)
@@ -20,7 +17,7 @@ export function DataContextProvider(props) {
     const { data: issues } = await api.get('/issues');
 
     setIssuesList(issues);
-    isLoading && setIsLoading(false);
+    setIsLoading(false);
   }
 
   async function fetchIssueById( issueId ){ 
@@ -29,17 +26,33 @@ export function DataContextProvider(props) {
     const { data: issue } = await api.get(`/issues/${issueId}`);
 
     setIssue(issue);
-    isLoading && setIsLoading(false);
+    setIsLoading(false);
   }
 
-  function getDoneIssues() {
-    console.log("GET ISSUES DONE",issuesList)
-    return issuesList.filter( issue => issue.isItDone )
+  // TODO -> REFACTOR DATA HANDLERS
+  const getTodayDate= () => "" + new Date().getFullYear() +"-"+ (new Date().getMonth()+1) +"-"+ new Date().getDate()
+  const isTodayOverDeadline = (issue) => new Date(getTodayDate()) > new Date(issue.deadline);
+  const getSimpleDate = (date) => {
+    let formattedDate = new Date(date).getDate() +"/"+ (new Date(date).getMonth()+1) +"/"+ new Date(date).getFullYear();
+    formattedDate = formattedDate.split("/");
+    
+    const simpleDate = formattedDate.map( number => number.padStart(2,'0') ).join("/")
+
+    return simpleDate
   }
 
-  function getLateIssues() {
+  function getDoneIssues(list = issuesList) {
+    const doneIssues = list.filter( issue => issue.isDone )
+    console.log("DONE ISSUES", doneIssues)
+    return doneIssues
+  }
+
+  function getLateIssues(list = issuesList) {
     // FILTER WHERE ISSUE DEADLINE IS LESS THEN TODAY`S DATE
-    return issuesList.filter( isTodayOverDeadline ) ;
+    const undoneIssues = list.filter( issue => !issue.isDone )
+    const lateIssues = undoneIssues.filter( isTodayOverDeadline ) ;
+    console.log("RESPONSIBLE ISSUES", lateIssues)
+    return lateIssues
   }
 
   async function fetchResponsibleUsersList() {
@@ -48,7 +61,7 @@ export function DataContextProvider(props) {
     const { data: responsibles } = await api.get('/responsibles');
 
     setResponsibleList(responsibles);
-    isLoading && setIsLoading(false);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -62,7 +75,7 @@ export function DataContextProvider(props) {
         isLoading,
         responsibleList, issuesList, issue,
         fetchResponsibleUsersList, fetchIssuesList, fetchIssueById,
-        getDoneIssues, getLateIssues
+        getDoneIssues, getLateIssues, getSimpleDate
       }}
     >
       {props.children}

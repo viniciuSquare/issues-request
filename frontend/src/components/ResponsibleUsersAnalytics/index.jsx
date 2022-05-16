@@ -1,12 +1,20 @@
-import { AnalyticsBoardStyled } from "../AnalysticsBoardStyled";
+import { AnalyticsBoardStyled, BoardTitleStyled } from "../AnalysticsBoardStyled";
 
 import { useData } from "../../hooks/useData";
 
+import { Link as LinkIcon } from "phosphor-react";
+
 export function ResponsibleAnalytics() {
-  const { responsibleList: responsibleUsersList } = useData();
+  const { 
+    responsibleList: responsibleUsersList,
+    getDoneIssues, getLateIssues
+  } = useData();
   return(
     <AnalyticsBoardStyled className="analytics">
-      <h2 className="board-title" >Chamados por responsável</h2>
+      <BoardTitleStyled to='issues/by-responsible' className="board-title" >
+        Chamados por responsável 
+        <LinkIcon size="1.6rem" />
+      </BoardTitleStyled>
       <table>
         <tbody>
           <tr>
@@ -21,8 +29,8 @@ export function ResponsibleAnalytics() {
                 <tr key={idx}>
                   <td>{responsible.name}</td>
                   <td>{responsible.issuesCount}</td>
-                  <td>2</td>
-                  <td>1</td>
+                  <td>{getDoneIssues(responsible.issues).length || 0}</td>
+                  <td>{getLateIssues(responsible.issues).length || 0}</td>
                 </tr>
               )
             })

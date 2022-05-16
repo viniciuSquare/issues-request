@@ -14,6 +14,7 @@ function getUserFromRequestBody(requestBody) {
     name,
     role
   }
+
   return responsible;
 }
 
@@ -24,15 +25,28 @@ class UserServices {
         Issue: true
       }
     });
-    const users = usersWithIssues.map( user => {
-      return {
-        id: user.id,
-        name: user.name,
-        role: user.role,
-        issuesCount: user.Issue?.length || 0
+
+    usersWithIssues.forEach( (user, idx) => {
+      usersWithIssues[idx].issuesCount = usersWithIssues[idx].Issue?.length || 0;
+      usersWithIssues[idx].issues = usersWithIssues[idx].Issue
+      
+      delete usersWithIssues[idx].Issue
+
+    } )
+
+    response.json(usersWithIssues);
+  }
+
+  async createUser( request, response ) {
+    const { user: userToCreate } = getUserFromRequestBody(request.body);
+
+    const newUser = await prisma.user.create({
+      data: {
+        ...userToCreate
       }
-    })
-    response.json(users);
+    }).then( user => response.status(201).json(user) )
+    .catch( error => response.status(403) )
+
   }
 
 }

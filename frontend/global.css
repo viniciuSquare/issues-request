@@ -10,5 +10,25 @@
 }
 
 a {
+  display: flex ;
+  align-items: center ;
+
   text-decoration: none;
+  color: inherit;
+
+  opacity: 0.8;
+  font-weight: 500;  
+
+}
+a:hover {
+  opacity: 1;
+  
+}
+
+a svg {
+  margin-right: 0.5rem ;
+}
+
+button {
+  cursor: pointer;
 }

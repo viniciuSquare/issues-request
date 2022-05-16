@@ -29,15 +29,6 @@ export const StyledApp = styled.div`
     margin-bottom: 0.4rem ;
   }
 
-  a {
-    display: flex ;
-    align-items: center ;
-
-    svg {
-      margin-right: 0.5rem ;
-    }
-  }
-
   button, a.button {
     background-color: blue;
     color: white;

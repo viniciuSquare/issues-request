@@ -1,25 +1,33 @@
+import { NavLink } from "react-router-dom";
+
 import { useData } from "../../hooks/useData";
 
 import { StyledIssuesPage } from "./styled";
 
 import { PageHeader } from "../../components/PageHeader";
-import { Issue } from "../../components/Issue";
 
-export function Issues() {
 
-  const { 
-    issuesList,
-    isLoading
-   } = useData();
+export function Issues({children}) {
+
+  const { isLoading } = useData();
 
   return(
     <StyledIssuesPage className="container">
       <PageHeader title="Chamados"/>
-      <div className="issues-list">
-        { !isLoading &&
-          issuesList.map ( (issue,idx) => <Issue key={idx} issue={issue} />)
-        }
-      </div>
+      <main>
+        <div className="filters">
+          <legend>Filtros</legend>
+          <NavLink to="/issues" className="button">
+            Todos
+          </NavLink>
+          <NavLink to="/issues/by-responsible" className="button">
+            Por responsável
+          </NavLink>
+        </div>
+        <div className="issues-list">
+          { !isLoading && children }
+        </div>
+      </main>
     </StyledIssuesPage>
   )
 }

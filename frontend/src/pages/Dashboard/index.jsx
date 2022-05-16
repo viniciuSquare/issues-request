@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { PageHeader } from "../../components/PageHeader";
 
 import { useData } from "../../hooks/useData";
@@ -15,13 +14,13 @@ export function Dashboard() {
   } = useData();
 
   return(
-    <StyledDashboard className="container">
+    <StyledDashboard className="container" >
       <PageHeader title="Dashboard" />
       { !isLoading &&
-        <>
-          <GeneralIssuesAnalytics total={issuesList?.length} />
+        <main>
+          <GeneralIssuesAnalytics />
           <ResponsibleAnalytics />
-        </>
+        </main>
       }
 
     </StyledDashboard>

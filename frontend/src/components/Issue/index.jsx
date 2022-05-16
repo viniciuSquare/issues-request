@@ -1,31 +1,37 @@
 import { StyledIssue } from "./styled";
 
-export function Issue({issue}) {
+import {CalendarBlank, PaperPlaneTilt, User} from 'phosphor-react'
+import { useData } from "../../hooks/useData";
 
-  const getSimpleDate = (date) => {
-    return new Date(date).getDate() +"/"+ (new Date(date).getMonth()+1) +"/"+ new Date(date).getFullYear()
-  }
-  console.log("ISSUE ITEM", issue)
+export function Issue({issue}) {
+  const {getSimpleDate} = useData()
   return (
-    <StyledIssue to={`/issue/${issue.id}`}>
-      <div>
+    <StyledIssue className={ issue.isDone && "solved" }>
+      <div className="issue-head wrapper">
         <div className="wrapper">
           <legend>Nº </legend>
           <p>{issue.id}</p>
         </div>
-        <div>
-          <legend>Descrição</legend>
-          <p>{issue.description}</p>
+        <div className="wrapper">
+          <legend><User size="1.2rem"/></legend>
+          { issue.responsible?.name &&
+            <p>{issue.responsible.name}</p>
+          }
         </div>
       </div>
-      <div className="details-wrapper">
-        <div>
-          <legend>Responsável</legend>
-          <p>{issue.responsible.name}</p>
+      <div className="wrapper">
+        <div className="issue-description">
+          <p><strong>{issue.description}</strong></p>
         </div>
-        <div>
-          <legend>Deadline</legend>
-          <p>{getSimpleDate(issue.deadline)}</p>
+        <div className="wrapper details">
+          <div className="wrapper">
+            <PaperPlaneTilt size="1.2rem" />
+            <p>{issue.issueActions?.length}</p>
+          </div>
+          <div className="wrapper">
+            <CalendarBlank size='1.2rem' />
+            <p>{getSimpleDate(issue.deadline)}</p>
+          </div>
         </div>
       </div>
 

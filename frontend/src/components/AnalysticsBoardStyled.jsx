@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 export const AnalyticsBoardStyled = styled.div`
@@ -25,4 +26,17 @@ export const AnalyticsBoardStyled = styled.div`
       }
     }
   }
+`
+export const BoardTitleStyled = styled(Link)`
+  display: flex ;
+  justify-content: space-between;
+  
+  font-size: 1.5rem;
+
+  height: 2.5rem;
+  padding: 0 0.8rem;
+
+  border-radius: 4px;
+
+  background-color: #71a3ff79;
 `

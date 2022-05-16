@@ -1,18 +1,26 @@
-import { AnalyticsBoardStyled } from "../AnalysticsBoardStyled";
+import { AnalyticsBoardStyled, BoardTitleStyled } from "../AnalysticsBoardStyled";
 
 import { useData } from "../../hooks/useData";
 
-export function GeneralIssuesAnalytics({total}) {
-  const { getDoneIssues, getLateIssues } = useData();
+import { Link as LinkIcon } from 'phosphor-react'
+
+export function GeneralIssuesAnalytics() {
+  const { 
+    issuesList, 
+    getDoneIssues, getLateIssues } = useData();
 
   return(
     <AnalyticsBoardStyled className="analytics">
-      <h2 className="board-title" >Total de chamados</h2>
+      <BoardTitleStyled to='/issues' className="board-title" >
+        Total de chamados
+        <LinkIcon size="1.6rem" />
+
+      </BoardTitleStyled>
       <table>
         <tbody>
           <tr>
             <td>Total de chamados</td>
-            <td>{ total }</td>
+            <td>{ issuesList.length }</td>
           </tr>
           <tr>
             <td>Chamados concluídos</td>

@@ -1,34 +1,52 @@
 import styled from 'styled-components'
 import {Link} from 'react-router-dom'
 
-export const StyledIssue = styled(Link)`
-  display: flex ;
+export const StyledIssue = styled.div`
+  display: grid ;
+  grid-template-rows: 2rem auto ;
+  width: 100% ;
   
   background-color: lightgray ;
+  box-shadow: 0px 8px 8px 2px rgba(0,0,0,0.1);
 
-  padding: 0.8rem 1.5rem;
+  padding: 0.5rem 1.5rem 0.8rem;
   margin-bottom: 1rem ;
 
   border-radius: 4px;
 
   color: inherit;
 
-  div:first-child {
-    width: 70% ;
+  gap: 0.4rem ;
+
+  &.solved {
+    .issue-description, .details {
+      color: green ;
+    }
+    background-color: #009f0045;
+
   }
 
-  .details-wrapper {
-    width: 30%;
-  }
+  div.issue-head {
+    width: 100% ;
 
-  legend {
-    opacity: 0.7 ;
+    border-bottom: 1px solid #adadadba;
+    margin-bottom: 0.5rem;
+    .wrapper {
+      column-gap: 0.2rem;
+    }
   }
 
   .wrapper {
     display: flex;
-    gap: 0.2rem;
+    justify-content: space-between;
 
-    margin-bottom: 0.5rem;
+    align-items: center;
+    .details {
+      column-gap: 0.8rem;
+      .wrapper {
+        column-gap: 0.3rem;
+      }
+    }
+
   }
 `
