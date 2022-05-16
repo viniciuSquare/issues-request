@@ -20,10 +20,9 @@ export const StyledIssue = styled.div`
 
   &.solved {
     .issue-description, .details {
-      color: green ;
+      color: #004a00 ;
     }
-    background-color: #009f0045;
-
+    background-color: #009f0014;
   }
 
   div.issue-head {

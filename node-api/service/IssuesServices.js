@@ -68,7 +68,7 @@ class IssuesServices {
           },
         },
       },
-    });
+    }).catch(error => console.log(error));
 
     return response.status(201).json(issueCreated);
   }
@@ -84,7 +84,7 @@ class IssuesServices {
         responsible: true,
         issueActions: true,
       },
-    });
+    }).catch(error => console.log(error));
     response.json(issueData);
   }
 
@@ -112,7 +112,7 @@ class IssuesServices {
         userId,
         date: new Date(date),
       },
-    });
+    }).catch(error => console.log(error));
 
     if (issueAction.isResolution)
       new IssuesServices().setIssueAsDone(issueAction.issueId);

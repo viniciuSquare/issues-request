@@ -24,7 +24,7 @@ class UserServices {
       include: {
         Issue: true
       }
-    });
+    }).catch(error => console.log(error));
 
     usersWithIssues.forEach( (user, idx) => {
       usersWithIssues[idx].issuesCount = usersWithIssues[idx].Issue?.length || 0;
@@ -45,7 +45,7 @@ class UserServices {
         ...userToCreate
       }
     }).then( user => response.status(201).json(user) )
-    .catch( error => response.status(403) )
+    .catch( error => response.status(404) )
 
   }
 

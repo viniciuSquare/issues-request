@@ -4,7 +4,7 @@ import CreatedFeedbackModal from '../../components/CreatedFeedbackModal';
 
 import { PageHeader } from '../../components/PageHeader';
 import { useData } from '../../hooks/useData';
-import { StyledIssueCreation } from './styled'
+import { StyledForm, StyledIssueCreation } from './styled'
 
 export function IssueCreation() {
 
@@ -41,7 +41,7 @@ export function IssueCreation() {
   return(
     <StyledIssueCreation className='container' >
       <PageHeader title="Criar chamado"/>
-      <form onChange={handleFormChange} onSubmit={handleSubmission}>
+      <StyledForm onChange={handleFormChange} onSubmit={handleSubmission}>
         <div className="input-wrapper">
           <legend htmlFor="issue-description">Descrição</legend>
           <textarea type="text" id="issue-description" name="description" />
@@ -65,7 +65,7 @@ export function IssueCreation() {
           </div>
         </div>
         <button >Enviar</button>
-      </form>
+      </StyledForm>
       { isCreationFeedbackOn &&
         <CreatedFeedbackModal toggleVisibility={toggleCreationFeedbackState}/>
        }

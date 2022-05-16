@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Issue } from "../Issue";
+import { Issue } from "../IssueItem";
 
 import { useData } from "../../hooks/useData"
 

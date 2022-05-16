@@ -1,8 +1,11 @@
-import { AnalyticsBoardStyled, BoardTitleStyled } from "../AnalysticsBoardStyled";
+import { AnalyticsBoardStyled } from "../AnalysticsBoardStyled";
 
 import { useData } from "../../hooks/useData";
 
+import { BoardHeader } from "../BoardHeader";
+
 import { Link as LinkIcon } from "phosphor-react";
+import { Link } from "react-router-dom";
 
 export function ResponsibleAnalytics() {
   const { 
@@ -11,10 +14,10 @@ export function ResponsibleAnalytics() {
   } = useData();
   return(
     <AnalyticsBoardStyled className="analytics">
-      <BoardTitleStyled to='issues/by-responsible' className="board-title" >
+      <BoardHeader BoardHeader to='issues/by-responsible' className="board-title" >
         Chamados por responsável 
-        <LinkIcon size="1.6rem" />
-      </BoardTitleStyled>
+        <Link to="/issues/by-responsible" ><LinkIcon size="1.6rem" /></Link>
+      </BoardHeader>
       <table>
         <tbody>
           <tr>

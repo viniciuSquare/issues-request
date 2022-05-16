@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { useData } from "../../hooks/useData";
 import { useParams } from "react-router-dom";
 
-import { Issue as IssueItem } from '../../components/Issue'
+import { Issue as IssueItem } from '../../components/IssueItem'
 import { PageHeader } from "../../components/PageHeader";
 
 import { StyledForm } from "../IssueCreation/styled";
 import { StyledIssuePage } from "./styled";
 import api from "../../api/api";
+import { CalendarBlank } from "phosphor-react";
+import { IssueAction } from "../../components/IssueAction";
+import CreatedFeedbackModal from "../../components/CreatedFeedbackModal";
+import { BoardHeader } from "../../components/BoardHeader";
 
 export function Issue() {
   const { 
@@ -21,7 +25,7 @@ export function Issue() {
 
   const toggleCreationFeedbackState= () => setIsCreationFeedbackOn(!isCreationFeedbackOn);
   
-  const { responsibleList, getSimpleDate } = useData();
+  const { responsibleList } = useData();
 
   const {id: issueId} = useParams();
 
@@ -95,21 +99,22 @@ export function Issue() {
           </div>
           <button >Atualizar</button>
         </StyledForm>
+        <BoardHeader title="Ações do chamado" className="smooth">Ações do chamado</BoardHeader>
         { !isLoading &&
           <>
-            { issue.issueActions.map( (action,idx ) => {
-              return(
-                <div key={idx}>
-                  <p>{action.description}</p>
-                  <p>{getSimpleDate(action.date)}</p>
-                  <p>Responsável</p>
-                </div>
-              )
-            })}
+            <div className="actions-list" >
+              { 
+                issue.issueActions.map( (action,idx ) => 
+                  <IssueAction action={action} key={idx} /> )
+              }
+            </div>
             <IssueItem issue={issue} />
           </>
         }
       </main>
+      { isCreationFeedbackOn &&
+        <CreatedFeedbackModal toggleVisibility={toggleCreationFeedbackState}/>
+      }
     </StyledIssuePage>
   )
 }
