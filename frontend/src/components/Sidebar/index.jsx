@@ -10,8 +10,6 @@ export function SideBar() {
         <NavLink to='/'>Dashboard</NavLink>
         <NavLink to='/issues'>Chamados</NavLink>
       </div>
-
-      <button>Hide  </button>
     </StyledSideBar>
   )
 
